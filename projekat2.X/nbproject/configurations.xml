@@ -13,13 +13,14 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>main.c</itemPath>
+      <itemPath>uart_driver.h</itemPath>
+      <itemPath>uart_driver.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>mainb.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
