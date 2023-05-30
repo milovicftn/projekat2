@@ -1,8 +1,8 @@
 /* 
  * File:   uart_driver.h
- * Author: MarkoSSD
+ * Author: Mieko
  *
- * Created on 29. maj 2023., 04.05
+ * Created on November 3, 2022, 10:33 PM
  */
 
 #ifndef UART_DRIVER_H
@@ -21,13 +21,10 @@ extern "C" {
 
 /* Prijemni FIFO bafer */
 extern uint8_t rx_buffer[MAX_BUFFER_SIZE];
-
 /* Pozicija sa koje ce se procitati sledeci karakter */
 extern volatile uint8_t buffer_first;
-
 /* Pozicija na koju ce se upisati sledeci karakter */
 extern volatile uint8_t buffer_last;
-
 /* Trenutni broj karaktera u baferu */
 extern volatile uint8_t buffer_size;    
     
