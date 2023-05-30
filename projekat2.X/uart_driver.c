@@ -1,43 +1,34 @@
- /* 
+/* 
  * File:   uart_driver.h
- * Author: MarkoSSD
+ * Author: Mieko
  *
- * Created on 29. maj 2023., 04.05
+ * Created on November 3, 2022, 10:33 PM
  */
 
 #include "uart_driver.h"
 
 /* Prijemni FIFO bafer */
 uint8_t rx_buffer[MAX_BUFFER_SIZE];
-
 /* Pozicija sa koje ce se procitati sledeci karakter */
 volatile uint8_t buffer_first = 0;
-
 /* Pozicija na koju ce se upisati sledeci karakter */
 volatile uint8_t buffer_last  = 0;
-
 /* Trenutni broj karaktera u baferu */
 volatile uint8_t buffer_size  = 0;
 
-void uartInit(void) //u dvojku
+void uartInit(void)
 {
-    //U1BRG=0x0033;//ovim odredjujemo baudrate
-    U2BRG=0x0033;//ovim odredjujemo baudrate
+    U1BRG=0x0033;//ovim odredjujemo baudrate
 
-    //U1MODEbits.ALTIO=1;//biramo koje pinove koristimo za komunikaciju osnovne ili alternativne
-    //U2MODE=1;//biramo koje pinove koristimo za komunikaciju osnovne ili alternativne
+    U1MODEbits.ALTIO=1;//biramo koje pinove koristimo za komunikaciju osnovne ili alternativne
 
-    //IEC0bits.U1RXIE=1;//omogucavamo rx1 interupt
-    IEC1bits.U2RXIE=1;//omogucavamo rx1 interupt
+    IEC0bits.U1RXIE=1;//omogucavamo rx1 interupt
 
-    //U1STA&=0xfffc;
-    U2STA&=0xfffc;
+    U1STA&=0xfffc;
 
-    //U1MODEbits.UARTEN=1;//ukljucujemo ovaj modul
-    U2MODEbits.UARTEN=1;//ukljucujemo ovaj modul
+    U1MODEbits.UARTEN=1;//ukljucujemo ovaj modul
 
-    //U1STAbits.UTXEN=1;//ukljucujemo predaju
-    U2STAbits.UTXEN=1;//ukljucujemo predaju
+    U1STAbits.UTXEN=1;//ukljucujemo predaju
 }
 
 uint8_t uartAvailable()
@@ -74,18 +65,14 @@ uint8_t uartReadString(uint8_t *str_to_read)
     return length;
 }
 
-void uartWriteChar(uint8_t p_char)// udv
+void uartWriteChar(uint8_t p_char)
 {
-	//while(!U1STAbits.TRMT);
-	while(!U2STAbits.TRMT);
+	while(!U1STAbits.TRMT);
 
-    //if(U1MODEbits.PDSEL == 3)
-    if(U2MODEbits.PDSEL == 3)
-        //U1TXREG = p_char;
-        U2TXREG = p_char;
+    if(U1MODEbits.PDSEL == 3)
+        U1TXREG = p_char;
     else
-        //U1TXREG = p_char & 0xFF;
-        U2TXREG = p_char & 0xFF;
+        U1TXREG = p_char & 0xFF;
 }
 
 void uartWriteString(uint8_t *p_str)
@@ -98,14 +85,11 @@ void uartWriteString(uint8_t *p_str)
 
 }
 
-//void __attribute__((__interrupt__,auto_psv)) _U1RXInterrupt(void) 
-void __attribute__((__interrupt__,auto_psv)) _U2RXInterrupt(void) 
+void __attribute__((__interrupt__,no_auto_psv)) _U1RXInterrupt(void) 
 {
-    //IFS0bits.U1RXIF = 0;
-    IFS1bits.U2RXIF = 0;
+    IFS0bits.U1RXIF = 0;
     
-    //rx_buffer[buffer_last++]=U1RXREG;
-    rx_buffer[buffer_last++]=U2RXREG;
+    rx_buffer[buffer_last++]=U1RXREG;
     buffer_last &= MAX_BUFFER_SIZE - 1;
     
     if (buffer_size < MAX_BUFFER_SIZE)
