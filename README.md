@@ -16,5 +16,3 @@ inicijalizacija i test UART 1 2 i blutut
 https://turbofuture.com/industrial/How-to-Use-Timers-dspic30f-dspic33f
 
 https://electrosome.com/hc-sr04-ultrasonic-sensor-pic/
-
-https://electrosome.com/hc-sr04-ultrasonic-sensor-pic/
