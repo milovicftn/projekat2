@@ -5,10 +5,13 @@
  * Created on November 3, 2022, 9:13 PM
  */
 
+#define FCY 8000000
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <p30fxxxx.h>
+#include <libpic30.h>
 #include "uart_driver.h"
 
 
@@ -36,8 +39,6 @@
 // Use project enums instead of #define for ON and OFF.
 
 #include <xc.h>
-
-
 
 // _FOSC(CSW_FSCM_OFF & XT_PLL4); // instrukcioni takt je isti kao i kristal
 // _FWDT(WDT_OFF);
@@ -110,25 +111,21 @@ int main(int argc, char** argv)
     //uint8_t str[MAX_BUFFER_SIZE];
     
     TRISBbits.TRISB0=0; //trig na izlaz
-    TRISBbits.TRISB1=1; //echo n a ulaz 
+    TRISBbits.TRISB1=1; //echo na ulaz 
 
     //XLCDInit();
     Init_T1();
     Init_T2();
-    int vrm,vrm1;
-    
-    vrm=10;
-    vrm1=vrm*1000;
-    
+      
     uartInit();
     uartWriteString("START\r\n");
     
     while(1)
     {
-        /*
-        while(uartAvailable() == 0u);
-        delay(10);
         
+        //while(uartAvailable() == 0u);
+        delay(10);
+        /*
         len = uartReadString(str);
         
         if (len != 5)
@@ -142,17 +139,25 @@ int main(int argc, char** argv)
             uartWriteString("Jel te koleginice, sta kolega hoce od vas?\r\n");
         }
         */
+       
         uartWriteString("timer start2 \r\n");
         LATBbits.LATB0=1;   // ukljucimo trig signal
-        Delay_us(vrm1);        // duzina signala 10
+        
+        uartWriteString("ukljucen trig \r\n");
+        //Delay_us(vrm1);        // duzina signala 10 
+        __delay_us(10);        // duzina signala 10 us
+        
         LATBbits.LATB0=0;   // ugasimo trig signal
         
-        uartWriteString("timer start3 \r\n");
+        uartWriteString("iskljucen trig \r\n");
         while (!PORTBbits.RB1); //kad je echo na 1
+        
         uartWriteString("timer start4 \r\n");
         T1CONbits.TON=1;
+        
         uartWriteString("timer start \r\n");
         while (PORTBbits.RB1 || IFS0bits.T1IF==1); //kad je echo na 0
+        
         T1CONbits.TON=0;
         uartWriteString("timer stop \r\n");
         

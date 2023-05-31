@@ -1,12 +1,13 @@
 #include <p30fxxxx.h>
 #include "tajmeri.h"
 
-
-
 #define TMR2_period 8000 /*  Fosc = 8MHz,
-					          1/Fosc = 0.1us !!!, 0.1us * 1000 = 1ms 
+					          1/Fosc = 0.125us !!!, 0.1us * 10000 = 1ms 
 					          1/8000 = 0.125us !!!, 0.125us * 8000 = 1ms  */
-#define TMR1_period_us 8000 // 10 mikro sekunda
+#define TMR1_period_us 8000 // 10 uS 
+
+//#define TMR2_period 8 /*  Fosc = 10MHz,
+					         // 1/Fosc = 0.1us !!!, 0.1us * 1000 = 0.1ms  */
 
 void Init_T1(void)
 {
