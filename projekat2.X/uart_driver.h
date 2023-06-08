@@ -31,11 +31,13 @@ extern volatile uint8_t buffer_size;
 /* Funckija inicijalizuje UART kanal */
 void uartInit(void);
 
+
 void WriteUART1(unsigned int data);
 void WriteUART2(unsigned int data);
 void WriteUART1dec2string(unsigned int data);
 void RS232_putst(register const char*str);
 void RS232_putst2(const char *s);
+
 
 /* Funckija koja vraca trenutni broj karaktera u FIFO baferu 
    Ako je prazan vraca 0

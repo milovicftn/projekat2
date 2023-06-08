@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <p30fxxxx.h>
+
 #include <libpic30.h>
 
 #include "uart_driver.h"
@@ -36,9 +37,11 @@
 #pragma config BOREN = PBOR_ON          // PBOR Enable (Enabled)
 #pragma config MCLRE = MCLR_EN          // Master Clear Enable (Enabled)
 
+
 // FGS
 #pragma config GWRP = GWRP_OFF          // General Code Segment Write Protect (Disabled)
 #pragma config GCP = CODE_PROT_OFF      // General Segment Code Protection (Disabled)
+
 
 // FICD
 #pragma config ICS = ICS_PGD            // Comm Channel Select (Use PGC/EMUC and PGD/EMUD)
@@ -49,6 +52,7 @@
 #include <xc.h>
 
 
+
 //C:\Mikroe\M\aaa.exe -w -${Device} -q -f"D:\PRIM\projekat2.X\dist\default\production\projekat2.X.production.hex"
 
  //_FOSC(CSW_FSCM_OFF & XT_PLL4); // instrukcioni takt je isti kao i kristal
@@ -57,11 +61,13 @@
 unsigned int stoperica;
 unsigned int stoperica2;
 int cont, i;
+
 float dist;
 
 char dists[6]="";
 
 /* Funckija stopira program na odredjeno vreme */ 
+
 
 
 void Delay_us (int vreme)//funkcija za kasnjenje u 10mikro
@@ -81,10 +87,12 @@ void __attribute__ ((__interrupt__,no_auto_psv)) _T1Interrupt(void) // svakih 10
 	TMR1 =0;
     stoperica++;//brojac za funkciju Delay_ms
 	IFS0bits.T1IF = 0;
+
 }
 
 void __attribute__ ((__interrupt__,no_auto_psv)) _T2Interrupt(void) // svakih 1ms
 {
+
 	TMR2 =0;
     stoperica2++;//brojac za funkciju Delay_ms
 	IFS0bits.T2IF = 0;    
@@ -93,6 +101,7 @@ void __attribute__ ((__interrupt__,no_auto_psv)) _T2Interrupt(void) // svakih 1m
 /*
  * Main funkcija
  */
+
 
 void delay(uint16_t delay_time);
 
@@ -125,10 +134,12 @@ int main(int argc, char** argv)
         while(uartAvailable() == 0);
         //Delay_us(20);
        
+
         len = uartReadString(str);
         
         if (len != 5)
         {
+
             uart2WriteString("Uneli ste pogresan broj karaktera.\r\n");
         } else if ( (str[0] != 'D') || (str[1] != 'O') || (str[2] != 'R') || (str[3] != 'O') || (str[4] != 'S')  )
         {
@@ -161,12 +172,14 @@ int main(int argc, char** argv)
             {
             cont=TMR1;
             dist=(float)cont*0.178573; // cm (stavi *0.178573 )
+
             uartWriteString("\r\n");
             uartWriteString((char)dist);
           
         }
         if(IFS0bits.T1IF==1)
             {IFS0bits.T1IF==1;}
+
         */
         
         
@@ -192,7 +205,6 @@ int main(int argc, char** argv)
             uart2WriteString("Jel te koleginice, sta kolega hoce od vas?\r\n");
         }
     }      
-    
     
    
     

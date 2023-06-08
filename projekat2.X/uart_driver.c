@@ -31,6 +31,7 @@ void uartInit(void)
     U1STAbits.UTXEN=1;//ukljucujemo predaju
 }
 
+
 void uart2Init(void)
 {
     U2BRG=0x0033;//ovim odredjujemo baudrate
@@ -120,6 +121,7 @@ void RS232_putst2(const char *s)
     }
 }
 
+
 uint8_t uartAvailable()
 {
     return buffer_size;
@@ -164,6 +166,7 @@ void uartWriteChar(uint8_t p_char)
         U1TXREG = p_char & 0xFF;
 }
 
+
 void uartWriteChar2(uint8_t p_char)
 {
 	while(!U2STAbits.TRMT);
@@ -173,6 +176,7 @@ void uartWriteChar2(uint8_t p_char)
     else
         U2TXREG = p_char & 0xFF;
 }
+
 
 void uartWriteString(uint8_t *p_str)
 {
@@ -184,6 +188,7 @@ void uartWriteString(uint8_t *p_str)
 
 }
 
+
 void uart2WriteString(uint8_t *p_str)
 {
 	while ((*p_str) != 0)
@@ -193,6 +198,7 @@ void uart2WriteString(uint8_t *p_str)
     }
 
 }
+
 
 void __attribute__((__interrupt__,no_auto_psv)) _U1RXInterrupt(void) 
 {
@@ -205,6 +211,7 @@ void __attribute__((__interrupt__,no_auto_psv)) _U1RXInterrupt(void)
     {
         buffer_size++;
     }
+
 }
 
 void __attribute__((__interrupt__,no_auto_psv)) _U2RXInterrupt(void) 
@@ -221,3 +228,4 @@ void __attribute__((__interrupt__,no_auto_psv)) _U2RXInterrupt(void)
         buffer_size++;
     }
 } 
+
