@@ -3,8 +3,8 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>Perak</name>
-            <creation-uuid>45f0d5a6-786c-43ac-a55f-5542b4e7df8b</creation-uuid>
+            <name>projekat2</name>
+            <creation-uuid>532e494e-c9f6-4599-b2ec-a86668f569e3</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>
@@ -12,16 +12,10 @@
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
-            <sourceRootList>
-                <sourceRootElem>.</sourceRootElem>
-            </sourceRootList>
+            <sourceRootList/>
             <confList>
                 <confElem>
                     <name>default</name>
-                    <type>2</type>
-                </confElem>
-                <confElem>
-                    <name>microSUITE</name>
                     <type>2</type>
                 </confElem>
             </confList>
