@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/ee%20410/projekat2-novibl/projekat2.X/Tajmeri.h</file>
+            <file>file:/D:/ee%20410/projekat2-novibl/projekat2.X/uart_driver.h</file>
+            <file>file:/D:/ee%20410/projekat2-novibl/projekat2.X/uart_driver.c</file>
+            <file>file:/D:/ee%20410/projekat2-novibl/projekat2.X/main.c</file>
+            <file>file:/D:/ee%20410/projekat2-novibl/projekat2.X/Tajmeri.c</file>
+        </group>
     </open-files>
 </project-private>

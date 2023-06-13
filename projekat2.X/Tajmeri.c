@@ -4,7 +4,7 @@
 #define TMR2_period 8000 /*  Fosc = 8MHz,
 					          1/Fosc = 0.1us !!!, 0.1us * 10000 = 1ms 
 					          1/8000 = 0.125us !!!, 0.125us * 8000 = 1ms  */
-#define TMR1_period_us 80 // 10 uS 
+#define TMR1_period_us 70 // 10 uS 
 
 //#define TMR2_period 8 /*  Fosc = 10MHz,
 					         // 1/Fosc = 0.1us !!!, 0.1us * 1000 = 0.1ms  */
@@ -20,7 +20,7 @@ void Init_T1(void)//tajmer za digitalni senzor 1
 	IFS0bits.T1IF = 0; // clear interrupt flag
 	IEC0bits.T1IE = 1; // enable interrupt
 
-	T1CONbits.TON = 0; // T1 off, upali pri merenju echo pina
+	T1CONbits.TON = 1; // T1 on
 }
 
 void Init_T2(void)//tajmer za delay ms
@@ -34,7 +34,7 @@ void Init_T2(void)//tajmer za delay ms
 	IFS0bits.T2IF = 0; // clear interrupt flag
 	IEC0bits.T2IE = 1; // enable interrupt
 
-	T2CONbits.TON = 1; // T2 off, upali pri merenju echo pina 
+	T2CONbits.TON = 1; // T2 on
 }
 
 void Init_T3(void)//tajmer za digitalni senzor 2

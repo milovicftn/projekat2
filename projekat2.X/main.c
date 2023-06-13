@@ -58,6 +58,8 @@ unsigned int stoperica;
 unsigned int stoperica2;
 int cont, i;
 float dist;
+int tl,th;
+
 
 char dists[6]="";
 
@@ -96,11 +98,25 @@ void __attribute__ ((__interrupt__,no_auto_psv)) _T2Interrupt(void) // svakih 1m
 
 void delay(uint16_t delay_time);
 
+void pwmm(){
+       LATDbits.LATD0=1;
+        LATDbits.LATD1=1;
+        Delay_us(th);//visok signal
+        
+        
+        LATDbits.LATD0=0;
+        LATDbits.LATD1=0;
+        Delay_us(tl);//nizak signal
+        
+}
+
 int main(int argc, char** argv)
 {      
     uint8_t len = 0;
     uint8_t str[MAX_BUFFER_SIZE];
-    
+    int th=8;
+    int tl=10-th;
+    int i, j;
     //setovanje ulaza i izlaza
     //TRISBbits.TRISB0=0; //trig1 na izlaz
     //TRISBbits.TRISB1=1; //echo1 na ulaz 
@@ -108,34 +124,80 @@ int main(int argc, char** argv)
     //inicijalizacije
     Init_T1();
     Init_T2();
-    uartInit();
-    uart2Init();
+    //uartInit();
+    //uart2Init();
+    
+    
+    TRISDbits.TRISD0=0;//PWM1
+    TRISDbits.TRISD1=0;//PWM2
+    TRISFbits.TRISF0=0;//IN1
+    TRISFbits.TRISF1=0;//IN2
+    TRISBbits.TRISB9=0;//IN3
+    TRISBbits.TRISB10=0;//IN4
+   
+     
+    // LATFbits.LATF0=1;
+     
+     // LATFbits.LATF1=1;
     
     //T1CONbits.TON=1;//obrisi
-
     Delay_ms(30); 
-    uart2WriteString("START  2 \r \n");
-    //RS232_putst2("START");
-    //WriteUART2(13);
+    //uartWriteString("START  2 \r \n");
+    //uart2WriteString("START  2 \r \n");
     
-    //RS232_putst("START");
-   /*
     while(1)
     {
-        while(uartAvailable() == 0);
-        //Delay_us(20);
-       
-        len = uartReadString(str);
+        //napred
+        LATFbits.LATF1=1;
+        for(i=0; i<200; i++){
+            for(j=0; j<100; j++){
+                LATDbits.LATD0=1;
+                LATDbits.LATD1=1;
+                Delay_us(th);//visok signal
         
+                LATDbits.LATD0=0;
+                LATDbits.LATD1=0;
+                Delay_us(tl);//nizak signal
+            }
+        }
+        Delay_ms(4000);
+        LATFbits.LATF1=0;
+        Delay_ms(1000);
+        
+        //nazad
+        LATFbits.LATF0=1;
+        for(i=0; i<200; i++){
+            for(j=0; j<100; j++){
+                LATDbits.LATD0=1;
+                LATDbits.LATD1=1;
+                Delay_us(th);//visok signal
+        
+                LATDbits.LATD0=0;
+                LATDbits.LATD1=0;
+                Delay_us(tl);//nizak signal
+            }
+        }
+        Delay_ms(4000);
+        LATFbits.LATF0=0;
+        Delay_ms(5000);
+        /*
+        while(uartAvailable() == 0u);
+        delay(10);
+        
+        len = uartReadString(str);
+        uartWriteString(str);
         if (len != 5)
         {
-            uart2WriteString("Uneli ste pogresan broj karaktera.\r\n");
+            //uart2WriteString("2Uneli ste pogresan broj karaktera.\r\n");
+            uartWriteString("Uneli ste pogresan broj karaktera.\r\n");
         } else if ( (str[0] != 'D') || (str[1] != 'O') || (str[2] != 'R') || (str[3] != 'O') || (str[4] != 'S')  )
         {
-            uart2WriteString("Pogresan unos.\r\n");
+            //uart2WriteString("2Pogresan unos.\r\n");
+            uartWriteString("Pogresan unos.\r\n");
         } else
         {
-            uart2WriteString("Jel te koleginice, sta kolega hoce od vas?\r\n");
+            //uart2WriteString("2Jel te koleginice, sta kolega hoce od vas?\r\n");
+            uartWriteString("Jel te koleginice, sta kolega hoce od vas?\r\n");
         }
         
         /*
@@ -171,31 +233,7 @@ int main(int argc, char** argv)
         
         
         //Delay_ms(200);
-    
-            
-     
-      while(1)
-    {
-        while(uartAvailable() == 0u);
-        delay(10);
-        
-        len = uartReadString(str);
-        
-        if (len != 5)
-        {
-            uart2WriteString("Uneli ste pogresan broj karaktera.\r\n");
-        } else if ( (str[0] != 'D') || (str[1] != 'O') || (str[2] != 'R') || (str[3] != 'O') || (str[4] != 'S')  )
-        {
-            uart2WriteString("Pogresan unos.\r\n");
-        } else
-        {
-            uart2WriteString("Jel te koleginice, sta kolega hoce od vas?\r\n");
-        }
-    }      
-    
-    
-   
-    
+    } 
     return (EXIT_SUCCESS);
 }
 

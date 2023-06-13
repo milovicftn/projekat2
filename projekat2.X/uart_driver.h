@@ -30,6 +30,7 @@ extern volatile uint8_t buffer_size;
     
 /* Funckija inicijalizuje UART kanal */
 void uartInit(void);
+void uartInit2(void);
 
 void WriteUART1(unsigned int data);
 void WriteUART2(unsigned int data);
@@ -50,9 +51,11 @@ uint8_t uartReadString(uint8_t *str_to_read);
 
 /* Funckija upisuje jedan karakter u FIFO bafer */
 void uartWriteChar(uint8_t p_char);
+void uartWriteChar2(uint8_t p_char);
 
 /* Funckija upisuje niz karaktera u FIFO bafer */
 void uartWriteString(uint8_t *p_str);
+void uart2WriteString(uint8_t *p_str);
 
 
 #ifdef	__cplusplus
